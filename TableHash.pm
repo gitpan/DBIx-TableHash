@@ -5,7 +5,7 @@ use strict;
 
 package DBIx::TableHash;
 
-use vars qw($VERSION);              $VERSION = '1.04';
+use vars qw($VERSION);              $VERSION = '1.05';
 
 =pod
 
@@ -578,6 +578,7 @@ sub create
 		unless 
 			my $ThisObject = tie (%$ThisHash, $Class, $Params);	## Calls new()
 	
+  done:
 	## Return undef if failure or the tied anonymous hash if success.
 	return($ThisObject && $ThisHash);
 }
