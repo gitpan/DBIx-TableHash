@@ -1,0 +1,24 @@
+DBIx::TableHash -- Hash refs tied to full/partial SQL tables
+
+Copyright (c) 2002, Chris Thorman.
+
+Released to the public under the terms of the Perl Artistic License.
+
+FURTHER INFO
+
+Extensive discussion and examples are given in the source / docs.
+
+Read the full documentation in TableHash.pm.
+
+Or, after installing, read the man page using:
+
+	man     DBIx::TableHash
+	perldoc DBIx::TableHash
+
+BUILDING
+
+perl Makefile.PL; make test install
+
+FEEDBACK TO
+
+Chris Thorman, chthorman@cpan.org
