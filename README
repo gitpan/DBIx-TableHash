@@ -33,7 +33,9 @@ SYNOPSIS
              ## For caching:
              CacheMode => 'CacheBeforeIterate'
              ## or...
-             CacheMode => 'CacheOneTime',
+             CacheMode => 'CacheOneTime'
+             ## or...
+             CacheMode => 'CacheNone'
             }
          );
 
@@ -290,6 +292,12 @@ DETAILS
 
         CacheMode => 'CacheOneTime'
 
+    To disable caching, specify:
+
+        CacheMode => 'CacheNone'
+
+    (You can also assign undef to CacheMode, but you'll get warnings.)
+
     Normally, every time you fetch a value from the hash, it makes an SQL
     query to the database. This, of course, is the intended and normal mode
     of operation.
@@ -483,6 +491,11 @@ SEE ALSO
     The mysql home page:
 
         http://mysql.com/
+
+THANKS
+    Thanks to Mark Leighton Fisher <fisherm@tce.com> for providing a patch
+    to fix -w support (change in standard "none" setting of CacheMode from
+    undef to CacheNone).
 
 AUTHOR
     Chris Thorman <chthorman@cpan.org>

@@ -12,9 +12,11 @@ WriteMakefile(
 			  DISTNAME		=> "${Top}-${Mod}",
 			  VERSION_FROM	=> "$Mod.pm",
 			  ABSTRACT_FROM	=> "$Mod.pm",
-			  PREREQ_PM		=> {'DBI'				=> 0, 
-								'Carp'				=> 0, 
-								'Data::Dumper'		=> 0},
+			  PREREQ_PM		=> {
+				  'DBI'				=> 0, 
+				  ## 'Carp'			=> 0, 
+				  ## 'Data::Dumper'	=> 0,
+			  },
 			  PMLIBDIRS		=> ["$Mod"],
 			  clean			=> {FILES => ".AppleDouble test/.AppleDouble test/cache/* test/cache/ test/*.out* *.bak $Mod.html"},
 			  );

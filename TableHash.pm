@@ -5,7 +5,7 @@ use strict;
 
 package DBIx::TableHash;
 
-use vars qw($VERSION);              $VERSION = '1.02';
+use vars qw($VERSION);              $VERSION = '1.04';
 
 =pod
 
@@ -46,7 +46,9 @@ DBIx::TableHash - Tie a hash to a mysql table + SQL utils
          ## For caching:
          CacheMode => 'CacheBeforeIterate'
          ## or...
-         CacheMode => 'CacheOneTime',
+         CacheMode => 'CacheOneTime'
+         ## or...
+         CacheMode => 'CacheNone'
         }
      );
 
@@ -314,6 +316,12 @@ can be specified to enable caching:
 
     CacheMode => 'CacheOneTime'
 
+To disable caching, specify:
+
+    CacheMode => 'CacheNone'
+
+(You can also assign undef to CacheMode, but you'll get warnings.)
+
 Normally, every time you fetch a value from the hash, it makes an SQL
 query to the database.  This, of course, is the intended and normal
 mode of operation.  
@@ -518,6 +526,12 @@ The mysql home page:
 
     http://mysql.com/
 
+=head1 THANKS
+
+Thanks to Mark Leighton Fisher <fisherm@tce.com> for providing a patch
+to fix -w support (change in standard "none" setting of CacheMode from
+undef to CacheNone).
+
 =head1 AUTHOR
 
 Chris Thorman <chthorman@cpan.org>
@@ -670,7 +684,7 @@ sub initialize
 	$this->{KeyField}	||= '';				## Name of field in which lookup keys are found.
 	$this->{ValueField}	||= '';				## Name of field in which value keys are found.
 
-	$this->{CacheMode}	||= undef;			## Cache mode; none by default.
+	$this->{CacheMode}	||= "CacheNone";	## Cache mode; none by default.
 
 	$this->{FixedKeys}		= {} unless ref($this->{FixedKeys}     ) eq 'HASH';  ## Ensure a hash ref
 	$this->{RetrieveFields} = [] unless ref($this->{RetrieveFields}) eq 'ARRAY'; ## Ensure an array ref
@@ -1018,7 +1032,7 @@ sub FIRSTKEY
 	## wouldn't want them to stop corresponding, or our cache would be
 	## full of junk.
 
-	if ($this->{CacheMode})
+	if (defined($this->{CacheMode}) && $this->{CacheMode} ne "CacheNone")
 	{
 		carp("Failed ($dbh->errstr) while locking $this->{TableName} table for caching"), 
 		goto done
@@ -1047,7 +1061,7 @@ sub FIRSTKEY
 	## _Keys list is.  Then we make a _CacheHash object mapping all
 	## the keys in _Keys to the retrieved values.
 
-	if ($this->{CacheMode})
+	if (defined($this->{CacheMode}) && $this->{CacheMode} ne "CacheNone")
 	{
 		$this->{_CacheHash} = {};  
 		@{$this->{_CacheHash}}{@{$this->{_Keys}}} = @{$this->FETCH(undef, 'All')};
