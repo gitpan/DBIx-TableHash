@@ -4,3 +4,4 @@ Makefile.PL
 TableHash.pm
 README
 test.pl
+fix_html.perl

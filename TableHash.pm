@@ -1,16 +1,17 @@
 #!/usr/bin/perl
+## Emacs: -*- tab-width: 4; -*-
 
 use strict;
 
 package DBIx::TableHash;
 
-use vars qw($VERSION);              $VERSION = '1.0';
+use vars qw($VERSION);              $VERSION = '1.01';
 
-=pod 
+=pod
 
-=head1 DBIx::TableHash
+=head1 NAME
 
-A class that ties a hash to a table in a mysql database.
+DBIx::TableHash - Tie a hash to a mysql table + SQL utils
 
 =head1 SYNOPSIS
 
@@ -56,6 +57,8 @@ A class that ties a hash to a table in a mysql database.
 
     my $DBHash = DBIx::TableHash->create_copy($Params) or die "Help!";
     my $DBHash = DBIx::TableHash->create_copy_or_die($Params);
+
+=head1 OVERVIEW
 
 All parameters are passed via a single anonymous hash.
 
@@ -485,15 +488,44 @@ Solutions:
     2) Only iterate or enumerate on short tables. 
     3) LValue or RValue hash slices should be safe to do.
 
-=head1 COPYRIGHT/LICENSING NOTICE
 
-Copyright (c) 2002, Chris Thorman
+=head1 INSTALLATION
 
-Released to the public under the terms of the Perl Artistic License.
+Using CPAN module:
+
+    perl -MCPAN -e 'install DBIx::TableHash'
+
+Or manually:
+
+    tar xzvf DBIx-TableHash*gz
+    cd DBIx-TableHash-?.??
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+=head1 SEE ALSO
+
+The DBIx::TableHash home page:
+
+    http://christhorman.com/projects/perl/DBIx-TableHash/
+
+The implementation in TableHash.pm.
+
+The perlref and perltie manual pages.
+
+The mysql home page:
+
+    http://mysql.com/
 
 =head1 AUTHOR
 
 Chris Thorman <chthorman@cpan.org>
+
+Copyright (c) 1995-2002 Chris Thorman.  All rights reserved.  
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
 
